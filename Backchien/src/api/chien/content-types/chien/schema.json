@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "chiens",
+  "info": {
+    "singularName": "chien",
+    "pluralName": "chiens",
+    "displayName": "Chiens",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Titre": {
+      "type": "string"
+    },
+    "Description": {
+      "type": "text"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "commentaires": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::commentaire.commentaire",
+      "mappedBy": "chien"
+    }
+  }
+}

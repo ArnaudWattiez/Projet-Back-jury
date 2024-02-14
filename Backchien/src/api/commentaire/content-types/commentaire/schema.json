@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "commentaires",
+  "info": {
+    "singularName": "commentaire",
+    "pluralName": "commentaires",
+    "displayName": "Commentaire",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Pseudo": {
+      "type": "string",
+      "unique": false,
+      "required": true
+    },
+    "contenu": {
+      "type": "text",
+      "required": true
+    },
+    "chien": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::chien.chien",
+      "inversedBy": "commentaires"
+    }
+  }
+}
