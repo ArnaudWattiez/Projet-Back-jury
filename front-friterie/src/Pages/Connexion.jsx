@@ -1,64 +1,58 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import Cookies from 'js-cookie';
+import axios from 'axios'; // Importation du module Axios pour les requêtes HTTP
+import Cookies from 'js-cookie'; // Importation du module Cookies pour gérer les cookies
 
+// Définition du composant Pageconnexion
 export const Pageconnexion = () => {
-  const [pseudo, setPseudo] = useState('');
-  const [password, setPassword] = useState('');
-  const [erreur, setErreur] = useState('');
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // Déclaration des états
+  const [pseudo, setPseudo] = useState(''); // État pour stocker le pseudo
+  const [password, setPassword] = useState(''); // État pour stocker le mot de passe
+  const [erreur, setErreur] = useState(''); // État pour stocker les messages d'erreur
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // État pour indiquer si l'utilisateur est connecté
 
+  // Effet de chargement pour vérifier l'état de connexion au chargement de la page
   useEffect(() => {
-    const token = Cookies.get('token');
+    const token = Cookies.get('token'); // Récupération du token depuis les cookies
     if (token) {
-      setIsLoggedIn(true);
-      const storedPseudo = Cookies.get('pseudo');
+      // Si un token est présent dans les cookies, l'utilisateur est connecté
+      setIsLoggedIn(true); // Met à jour l'état pour indiquer que l'utilisateur est connecté
+      const storedPseudo = Cookies.get('pseudo'); // Récupération du pseudo depuis les cookies
       if (storedPseudo) {
-        setPseudo(storedPseudo);
+        setPseudo(storedPseudo); // Met à jour l'état avec le pseudo récupéré depuis les cookies
       }
     } else {
-      setIsLoggedIn(false);
+      setIsLoggedIn(false); // Si aucun token n'est présent, l'utilisateur n'est pas connecté
     }
-  }, []);
+  }, []); // Ce tableau vide indique que cet effet s'exécute uniquement après le premier rendu
 
-  const handleLogout = () => {
-    Cookies.remove('token');
-    Cookies.remove('pseudo'); // Supprimer le pseudo du cookie lors de la déconnexion
-    setIsLoggedIn(false);
-    window.location.href = '/';
-  };
-
+  // Fonction de gestion de la soumission du formulaire
   const handleSubmit = async (event) => {
-    event.preventDefault();
+    event.preventDefault(); // Empêche le comportement par défaut du formulaire
 
     try {
+      // Tentative de connexion en envoyant une requête POST au serveur avec les identifiants
       const response = await axios.post('http://localhost:1337/api/auth/local', {
         identifier: pseudo,
         password: password
       });
 
-      Cookies.set('token', response.data.jwt, { expires: 1 });
-      Cookies.set('pseudo', pseudo); // Stocker le pseudo dans un cookie après connexion réussie
-      setIsLoggedIn(true);
-      window.location.href = '/';
+      // Si la connexion est réussie, stocke le token JWT dans les cookies
+      Cookies.set('token', response.data.jwt, { expires: 1 }); // Le token expire après 1 jour
+      Cookies.set('pseudo', pseudo); // Stocke également le pseudo dans les cookies
+      setIsLoggedIn(true); // Met à jour l'état pour indiquer que l'utilisateur est connecté
+      window.location.href = '/'; // Redirige l'utilisateur vers la page d'accueil
     } catch (error) {
-      console.error('Erreur lors de la connexion :', error);
-      setErreur('Erreur lors de la connexion');
+      console.error('Erreur lors de la connexion :', error); // Affiche l'erreur dans la console
+      setErreur('Erreur lors de la connexion'); // Met à jour l'état avec un message d'erreur
     }
   };
 
+  // Rendu du composant Pageconnexion
   return (
     <div className="flex justify-center items-center h-screen">
       <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
         {erreur && <div className="text-red-500 mb-4">{erreur}</div>}
-        {isLoggedIn ? (
-          <button
-            onClick={handleLogout}
-            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-          >
-            Déconnexion
-          </button>
-        ) : (
+        {!isLoggedIn && ( // Vérifie si l'utilisateur n'est pas connecté avant d'afficher le formulaire de connexion
           <>
             <div className="mb-4">
               <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="pseudo">
@@ -88,7 +82,7 @@ export const Pageconnexion = () => {
             </div>
             <button
               type="submit"
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              className="bg-gray-800 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             >
               Se connecter
             </button>
