@@ -36,7 +36,7 @@ export const Inscription = () => {
       // Affichage d'un message d'erreur en cas d'échec de l'inscription
       console.error('Erreur lors de l\'inscription de l\'utilisateur :', error);
       setMessage(''); // Efface les messages de succès précédents
-      setErreur('Erreur lors de l\'inscription de l\'utilisateur');
+      setErreur('Ce pseudo existe deja ou cette adresse mail existe deja');
     }
   };
 
