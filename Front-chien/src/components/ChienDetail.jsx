@@ -70,7 +70,7 @@ const ChienDetail = () => {
 
   const handleAddComment = () => {
     if (!pseudo || !nouveauCommentaireTextarea) {
-      alert('Si vous n\'êtes pas encore inscrit ou connectez vous ne pourrez pas mettre de commentaire, veuillez vous inscrire ou vous connectez.');
+      alert('Si vous n\'êtes pas encore inscrit ou connectez vous ne pourrez pas mettre de commentaire,veuillez vous inscrire ou vous connectez.');
       return;
     }
 
@@ -144,7 +144,6 @@ const ChienDetail = () => {
     )}
   </div>
 ))}
-
           </div>
           <form>
             <textarea
