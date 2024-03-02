@@ -78,11 +78,11 @@ export const Inscription = () => {
     const strongPasswordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{12,}$/; // Expression régulière pour un mot de passe fort
     const mediumPasswordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{10,}$/; // Expression régulière pour un mot de passe moyen
     if (strongPasswordRegex.test(password)) { // Vérification si le mot de passe correspond à un mot de passe fort
-      return 'Fort'; // Retourne "Fort"
-    } else if (mediumPasswordRegex.test(password)) { // Vérification si le mot de passe correspond à un mot de passe moyen
-      return 'Moyen'; // Retourne "Moyen"
+      return 'Fort'; 
+        } else if (mediumPasswordRegex.test(password)) { // Vérification si le mot de passe correspond à un mot de passe moyen
+      return 'Moyen'; 
     } else {
-      return 'Faible'; // Retourne "Faible" si aucune des conditions précédentes n'est remplie
+      return 'Faible'; 
     }
   };
 

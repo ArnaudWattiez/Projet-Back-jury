@@ -362,81 +362,6 @@ export interface AdminTransferTokenPermission extends Schema.CollectionType {
   };
 }
 
-export interface ApiChienChien extends Schema.CollectionType {
-  collectionName: 'chiens';
-  info: {
-    singularName: 'chien';
-    pluralName: 'chiens';
-    displayName: 'Chiens';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    Titre: Attribute.String;
-    Description: Attribute.Text;
-    image: Attribute.Media;
-    commentaires: Attribute.Relation<
-      'api::chien.chien',
-      'oneToMany',
-      'api::commentaire.commentaire'
-    >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::chien.chien',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::chien.chien',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiCommentaireCommentaire extends Schema.CollectionType {
-  collectionName: 'commentaires';
-  info: {
-    singularName: 'commentaire';
-    pluralName: 'commentaires';
-    displayName: 'Commentaire';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    Pseudo: Attribute.String & Attribute.Required;
-    contenu: Attribute.Text & Attribute.Required;
-    chien: Attribute.Relation<
-      'api::commentaire.commentaire',
-      'manyToOne',
-      'api::chien.chien'
-    >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::commentaire.commentaire',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::commentaire.commentaire',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
 export interface PluginUploadFile extends Schema.CollectionType {
   collectionName: 'files';
   info: {
@@ -856,6 +781,81 @@ export interface PluginI18NLocale extends Schema.CollectionType {
   };
 }
 
+export interface ApiChienChien extends Schema.CollectionType {
+  collectionName: 'chiens';
+  info: {
+    singularName: 'chien';
+    pluralName: 'chiens';
+    displayName: 'Chiens';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Titre: Attribute.String;
+    Description: Attribute.Text;
+    image: Attribute.Media;
+    commentaires: Attribute.Relation<
+      'api::chien.chien',
+      'oneToMany',
+      'api::commentaire.commentaire'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::chien.chien',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::chien.chien',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiCommentaireCommentaire extends Schema.CollectionType {
+  collectionName: 'commentaires';
+  info: {
+    singularName: 'commentaire';
+    pluralName: 'commentaires';
+    displayName: 'Commentaire';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    Pseudo: Attribute.String & Attribute.Required;
+    contenu: Attribute.Text & Attribute.Required;
+    chien: Attribute.Relation<
+      'api::commentaire.commentaire',
+      'manyToOne',
+      'api::chien.chien'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::commentaire.commentaire',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::commentaire.commentaire',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -866,8 +866,6 @@ declare module '@strapi/types' {
       'admin::api-token-permission': AdminApiTokenPermission;
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
-      'api::chien.chien': ApiChienChien;
-      'api::commentaire.commentaire': ApiCommentaireCommentaire;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;
@@ -876,6 +874,8 @@ declare module '@strapi/types' {
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'plugin::i18n.locale': PluginI18NLocale;
+      'api::chien.chien': ApiChienChien;
+      'api::commentaire.commentaire': ApiCommentaireCommentaire;
     }
   }
 }
