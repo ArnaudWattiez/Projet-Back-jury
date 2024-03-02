@@ -3,11 +3,12 @@ import axios from 'axios'; // Importation du module axios pour effectuer des req
 import Cookies from 'js-cookie'; // Importation du module js-cookie pour gérer les cookies
 
 export const Pageconnexion = () => {
-  // Déclaration des états pour gérer le pseudo, le mot de passe, les erreurs et l'état de connexion
+  // Déclaration des états pour gérer le pseudo, le mot de passe, les erreurs, l'état de connexion et le message de connexion réussie
   const [pseudo, setPseudo] = useState(''); // État pour le pseudo
   const [password, setPassword] = useState(''); // État pour le mot de passe
   const [erreur, setErreur] = useState(''); // État pour stocker les messages d'erreur
   const [isLoggedIn, setIsLoggedIn] = useState(false); // État pour indiquer si l'utilisateur est connecté
+  const [connexionReussie, setConnexionReussie] = useState(false); // État pour indiquer si la connexion est réussie
 
   // Effet exécuté au chargement du composant pour vérifier si l'utilisateur est déjà connecté
   useEffect(() => {
@@ -40,15 +41,16 @@ export const Pageconnexion = () => {
       Cookies.set('token', response.data.jwt, { expires: 1 / 48 }); // Stockage du token JWT avec une expiration de 30 minutes
       Cookies.set('pseudo', pseudo); // Stockage du pseudo dans les cookies
 
-      // Mise à jour de l'état de connexion
+      // Mise à jour de l'état de connexion et du message de connexion réussie
       setIsLoggedIn(true); // L'utilisateur est connecté
+      setConnexionReussie(true); // La connexion est réussie
 
       // Redirection vers la page d'accueil
       window.location.href = '/';
 
     } catch (error) {
       console.error('Erreur lors de la connexion :', error); // Affichage de l'erreur dans la console
-      setErreur('Erreur lors de la connexion'); // Mise à jour du message d'erreur dans l'état
+      setErreur('Mauvais mot de passe ou pseudo'); // Mise à jour du message d'erreur dans l'état
     }
   };
 
@@ -58,7 +60,9 @@ export const Pageconnexion = () => {
       {/* Formulaire de connexion */}
       <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
         {/* Affichage du message d'erreur s'il y en a un */}
-        {erreur && <div className="text-red-500 mb-4">{erreur}</div>}
+        {erreur && <div className="text-gray-700 mb-4">{erreur}</div>}
+        {/* Affichage du message de connexion réussie */}
+        {connexionReussie && <div className="text-gray-700 mb-4">Connexion réussie !</div>}
         {/* Affichage du formulaire de connexion si l'utilisateur n'est pas déjà connecté */}
         {!isLoggedIn && (
           <>

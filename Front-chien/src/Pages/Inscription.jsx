@@ -15,7 +15,7 @@ export const Inscription = () => {
 
   // Effet pour vérifier si l'utilisateur a accepté les cookies
   useEffect(() => {
-    if (Cookies.get('cookie_accept')) { // Vérification de l'acceptation des cookies
+    if (Cookies.get('cookie_consent')) { // Vérification de l'acceptation des cookies
       setShowCookieMessage(false); // Masquage du message sur les cookies
     }
   }, []);
@@ -55,7 +55,7 @@ export const Inscription = () => {
       setErreur(''); // Réinitialisation du message d'erreur
 
       // Définition du cookie pour indiquer que l'utilisateur a accepté les cookies
-      Cookies.set('cookie_accept', 'true', { expires: 1 / 48, path: '/' }); // Stockage du cookie avec expiration après 30 minutes
+      Cookies.set('cookie_consent', 'true', { expires: 1 / 48, path: '/' }); // Stockage du cookie avec expiration après 30 minutes
 
       setShowCookieMessage(false); // Masquage du message sur les cookies
 
@@ -109,7 +109,7 @@ export const Inscription = () => {
             <p>Ce site utilise des cookies pour vous offrir la meilleure expérience possible. Acceptez-vous les cookies ?</p>
             <div className="flex mt-4">
               {/* Bouton pour accepter les cookies */}
-              <button onClick={() => { setShowCookieMessage(false); Cookies.set('cookie_navigate', 'true', { expires: 1 / 48, path: '/' }); }} className="bg-gray-800 hover:bg-gray-900 text-white font-semibold py-2 px-4 rounded-md mr-2">Accepter les cookies</button>
+              <button onClick={() => { setShowCookieMessage(false); Cookies.set('cookie_navigation_decision', 'true', { expires: 1 / 48, path: '/' }); }} className="bg-gray-800 hover:bg-gray-900 text-white font-semibold py-2 px-4 rounded-md mr-2">Accepter les cookies</button>
               {/* Bouton pour refuser les cookies */}
               <button onClick={() => window.location.href = '/'} className="bg-gray-800 hover:bg-gray-900 text-white font-semibold py-2 px-4 rounded-md">Refuser les cookies</button>
             </div>
