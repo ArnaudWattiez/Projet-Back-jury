@@ -8,16 +8,17 @@ const ChienDetail = () => {
   const { id } = useParams();
 
   // Déclaration des états
-  const [chien, setChien] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [pseudo, setPseudo] = useState('');
-  const [nouveauCommentaireInput, setNouveauCommentaireInput] = useState('');
-  const [nouveauCommentaireTextarea, setNouveauCommentaireTextarea] = useState('');
-  const [commentToEdit, setCommentToEdit] = useState('');
+  const [chien, setChien] = useState(null); // État pour stocker les détails du chien
+  const [loading, setLoading] = useState(true); // État pour indiquer si le chargement est en cours
+  const [pseudo, setPseudo] = useState(''); // État pour stocker le pseudo de l'utilisateur
+  const [nouveauCommentaireInput, setNouveauCommentaireInput] = useState(''); // État pour le champ de saisie de commentaire (pour modification)
+  const [nouveauCommentaireTextarea, setNouveauCommentaireTextarea] = useState(''); // État pour le champ de texte de nouveau commentaire
+  const [commentToEdit, setCommentToEdit] = useState(''); // État pour stocker l'ID du commentaire en cours d'édition
 
   // Effet pour charger les détails du chien
   useEffect(() => {
     setLoading(true);
+    // Requête GET pour récupérer les détails du chien
     axios.get(`http://localhost:1337/api/chiens/${id}?populate=*`)
       .then((response) => {
         setChien(response.data.data);
@@ -131,6 +132,7 @@ const ChienDetail = () => {
               className="w-[300px] h-[300px] mr-2 rounded"
             />
             <div className="text-sm">
+              {/* Affichage de la description du chien */}
               {chien?.attributes?.Description.split('\n').map((line, index) => (
                 <React.Fragment key={index}>
                   {line}
@@ -158,12 +160,13 @@ const ChienDetail = () => {
                 ) : (
                   <>
                     <p>{commentaire.attributes.contenu}</p>
+                    {/* Bouton pour modifier le commentaire (visible uniquement par l'auteur du commentaire) */}
                     {commentaire.attributes.Pseudo === pseudo && (
                       <button onClick={() => setCommentToEdit(commentaire.id)} className="bg-gray-800 hover:bg-gray-900 text-white px-4 py-2 rounded ">Modifier</button>
                     )}
                   </>
                 )}
-                {/* Bouton pour supprimer un commentaire */}
+                {/* Bouton pour supprimer un commentaire (visible uniquement par l'auteur du commentaire) */}
                 {commentaire.attributes.Pseudo === pseudo && (
                   <button onClick={() => handleDeleteComment(commentaire.id)} className="bg-gray-800 hover:bg-gray-900 text-white px-4 py-2 rounded">Supprimer</button>
                 )}
@@ -187,5 +190,6 @@ const ChienDetail = () => {
 };
 
 export default ChienDetail;
+
 
 

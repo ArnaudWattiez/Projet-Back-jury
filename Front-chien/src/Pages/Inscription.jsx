@@ -109,7 +109,8 @@ export const Inscription = () => {
             <p>Ce site utilise des cookies pour vous offrir la meilleure expérience possible. Acceptez-vous les cookies ?</p>
             <div className="flex mt-4">
               {/* Bouton pour accepter les cookies */}
-              <button onClick={() => { setShowCookieMessage(false); Cookies.set('cookie_navigation_decision', 'true', { expires: 1 / 48, path: '/' }); }} className="bg-gray-800 hover:bg-gray-900 text-white font-semibold py-2 px-4 rounded-md mr-2">Accepter les cookies</button>
+              <button onClick={() => setShowCookieMessage(false)} className="bg-gray-800 hover:bg-gray-900 text-white font-semibold py-2 px-4 rounded-md mr-2">Accepter les cookies</button>
+
               {/* Bouton pour refuser les cookies */}
               <button onClick={() => window.location.href = '/'} className="bg-gray-800 hover:bg-gray-900 text-white font-semibold py-2 px-4 rounded-md">Refuser les cookies</button>
             </div>

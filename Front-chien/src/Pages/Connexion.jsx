@@ -98,9 +98,7 @@ export const Pageconnexion = () => {
             <button
               type="submit"
               className="bg-gray-800 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            >
-              Se connecter
-            </button>
+            >Se connecter</button>
           </>
         )}
       </form>
